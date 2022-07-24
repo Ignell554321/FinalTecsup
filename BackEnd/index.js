@@ -1,7 +1,19 @@
-const express =require('express');
 //crear el servidor de express
+const express =require('express');
+const {dbConnection} = require('./database/config');
+const cors = require('cors');
+
+require('dotenv').config();
+
 const app=express();
 
+//Configurando CORS
+app.use(cors());
+
+//Base de datos
+dbConnection();
+
+//Rutas
 app.get('/',(req,res)=>{
 
     res.json({
@@ -11,6 +23,6 @@ app.get('/',(req,res)=>{
 
 })
 
-app.listen(3000,()=>{
-    console.log('Servidor corriendo en puerto 3001');
+app.listen(process.env.PORT,()=>{
+    console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
 });
